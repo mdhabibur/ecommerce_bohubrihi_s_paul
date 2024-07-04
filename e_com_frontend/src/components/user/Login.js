@@ -141,7 +141,7 @@ const Login = () => {
 
 
 	return (
-		<Layout title='Login' className='container'>
+		<Layout title='Login' offsetMd3="offset-md-3" className='container'>
 
 			{loading && showLoading(loading)}
 			{error && showError(error, errorMsg)}

@@ -122,7 +122,7 @@ const Register = () => {
 	);
 
 	return (
-		<Layout title="Register" className="container">
+		<Layout title="Register" className="container" offsetMd3="offset-md-3">
 
 			{loading && showLoading(loading)}
 			{error && showError(error, errorMsg)}

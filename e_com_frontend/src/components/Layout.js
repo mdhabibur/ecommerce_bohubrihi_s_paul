@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Menu from "./Menu";
 
-const Layout = ({ title, className, children }) => {
+const Layout = ({ title, className, offsetMd3, children }) => {
 
     useEffect( () => {
         document.title = title
@@ -11,8 +11,14 @@ const Layout = ({ title, className, children }) => {
 		<>
 			<Menu />
 
-			<div className={`${className} m-4`}>
-                {children}
+			<div className={`${className} my-3`}>
+				<div className="row">
+					<div className={offsetMd3 ? `col-md-6 ${offsetMd3}` : `col-md-12`}
+					>
+
+						{children}
+					</div>
+				</div>
             </div>
 		</>
 	);

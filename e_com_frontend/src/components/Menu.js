@@ -12,7 +12,7 @@ const Menu = () => {
 
 	return (
 		<>
-			<nav className="navbar navbar-dark bg-dark">
+			<nav className="navbar navbar-dark bg-dark container">
 				<ul className="nav nav-tabs">
 					<li className="nav-item">
 						<Link to="/" className={`${isActivated("/")} nav-link`}>
