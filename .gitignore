@@ -1,0 +1,16 @@
+# Node.js
+/node_modules
+/e_com_backend/node_modules
+/e_com_frontend/nodemodules
+.env
+
+# Build output
+/e_com_backend/build
+/e_com_frontend/build
+
+# Logs
+
+# Dependency directories
+/e_com_backend/package-lock.json
+/e_com_frontend/package-lock.json
+
