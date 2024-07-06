@@ -115,4 +115,29 @@ const ipnPaymentSuccessHandler = async (req, res) => {
     }
 };
 
-module.exports = { initPayment, ipnHandler, ipnPaymentSuccessHandler };
+const ipnPaymentFailureHandler = async (req, res) => {
+    try {
+        const paymentFailurePath = path.join(global.__basedir, 'public', 'paymentFailure.html')
+        res.sendFile(paymentFailurePath)
+        
+    } catch (error) {
+        res.send(error)
+
+    }
+
+}
+
+
+const ipnPaymentCancelHandler = async (req, res) => {
+    try {
+        const paymentCancelPath = path.join(global.__basedir, 'public', 'paymentCancel.html')
+        res.sendFile(paymentCancelPath)
+        
+    } catch (error) {
+        res.send(error)
+
+    }
+    
+}
+
+module.exports = { initPayment, ipnHandler, ipnPaymentSuccessHandler, ipnPaymentFailureHandler, ipnPaymentCancelHandler };
