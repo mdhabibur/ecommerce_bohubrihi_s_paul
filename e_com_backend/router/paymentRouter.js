@@ -1,4 +1,4 @@
-const { initPayment } = require('../controllers/paymentController')
+const { initPayment, ipnHandler } = require('../controllers/paymentController')
 const isAuthorized = require('../middlewares/isAuthorized')
 
 
