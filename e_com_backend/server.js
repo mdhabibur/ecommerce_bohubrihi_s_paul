@@ -15,6 +15,12 @@ mongoose.connect(process.env.MONGODB_URL, {
 
 const port = process.env.PORT || 3001
 app.listen(port, () => {
-    console.log(`Server is running on localhost:${port}`);
+    if(port === 3001){
+        console.log(`Server is running on localhost:${port}`);
+
+    }else {
+        console.log(`Server is running on live server on port:${port}`);
+
+    }
 
 })
