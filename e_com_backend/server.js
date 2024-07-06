@@ -15,8 +15,7 @@ mongoose.connect(process.env.MONGODB_URL, {
 })
 
 
-//got the root dir and set it to global
-global.__basedir = path.resolve(__dirname)
+
 
 
 

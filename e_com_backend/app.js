@@ -9,6 +9,9 @@ const asyncErrorHandler = require('./middlewares/asyncErrorHandler')
 require('dotenv').config()
 const app = express()
 
+//got the root dir and set it to global
+global.__basedir = path.resolve(__dirname)
+
 
 //using middlewares
 const middlewares = require('./middlewares/index')
