@@ -1,4 +1,4 @@
-const { initPayment, ipnHandler } = require('../controllers/paymentController')
+const { initPayment, ipnHandler, ipnPaymentSuccessHandler } = require('../controllers/paymentController')
 const isAuthorized = require('../middlewares/isAuthorized')
 
 
@@ -10,5 +10,8 @@ router.route('/')
 
 router.route('/ipn')
         .post(ipnHandler)
+
+router.route('/success')
+        .post(ipnPaymentSuccessHandler)
 
 module.exports = router
