@@ -15,6 +15,7 @@ import Cart from "./orders/Cart";
 import ShippingDetails from "./orders/ShippingDetails";
 import CheckoutPage from "./orders/CheckoutPage";
 import UserProfile from "./user/UserProfile";
+import PaymentPage from "./orders/PaymentPage";
 
 const Main = () => {
 	return (
@@ -79,6 +80,15 @@ const Main = () => {
 				element={
 					<PrivateRoute>
 						<CheckoutPage />
+					</PrivateRoute>
+				}
+			/>
+
+			<Route
+				path="/user/payment"
+				element={
+					<PrivateRoute>
+						<PaymentPage />
 					</PrivateRoute>
 				}
 			/>

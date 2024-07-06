@@ -35,7 +35,7 @@ const ProductDetails = () => {
 					setLoading(false)
 					setError(false)
 					setSuccess(true)
-					setSuccessMsg(response?.data?.message || "fetched product successfully")
+					setSuccessMsg("Product Details")
 
 				})
 				.catch((error) => {

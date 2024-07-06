@@ -39,7 +39,7 @@ const Cart = () => {
 
                 setLoading(false)
                 setSuccess(true)
-                setSuccessMsg(response?.data?.message || "cart items retrieved")
+                setSuccessMsg("Your Cart Items ")
                 setError(false)
             })
             .catch((error) => {

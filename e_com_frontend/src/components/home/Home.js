@@ -89,13 +89,8 @@ const Home = () => {
 
 	useEffect( () => {
 
-		if(loading || error || success){
-
+		if(error || success){
 			const timer = setTimeout( () => {
-				if(loading){
-					alert("time out to fetch products")
-				}
-				setLoading(false)
 				setError(false)
 				setSuccess(false)
 
@@ -116,7 +111,7 @@ const Home = () => {
 
 		}
 
-	}, [loading, error, success, authenticatedAlertBeforeAddToCart, cartSuccessMsg, cartErrorMsg])
+	}, [error, success, authenticatedAlertBeforeAddToCart, cartSuccessMsg, cartErrorMsg])
 
 
 

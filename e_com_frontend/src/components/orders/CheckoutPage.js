@@ -115,7 +115,7 @@ const CheckoutPage = () => {
                         </div>
 
                         <br />
-                        <p><Link className="btn btn-warning btn-md" to="/payment">Make Payment</Link></p>
+                        <p><Link className="btn btn-warning btn-md" to="/user/payment">Make Payment</Link></p>
                     </div>
                 </div>
             </div>
