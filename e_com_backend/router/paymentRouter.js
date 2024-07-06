@@ -8,6 +8,7 @@ const router = require('express').Router()
 router.route('/')
         .get(isAuthorized, initPayment)
 
-router.route('/ipn', ipnHandler)
+router.route('/ipn')
+        .post(ipnHandler)
 
 module.exports = router
