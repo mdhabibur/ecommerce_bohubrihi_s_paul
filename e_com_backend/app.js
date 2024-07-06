@@ -1,6 +1,7 @@
 const express = require('express')
 require('express-async-errors')
 const cors = require('cors')
+const path = require('path')
 const morgan = require('morgan')
 
 const asyncErrorHandler = require('./middlewares/asyncErrorHandler')
