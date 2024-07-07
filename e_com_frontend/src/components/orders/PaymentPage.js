@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { initPayment } from "../../api/users/paymentApi";
 import { userInfo } from "../../utils/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { showError } from "../../utils/responseMessages";
 
 const PaymentPage = () => {
 	const [sessionSuccess, setSessionSuccess] = useState(false);
 	const [sessionFailed, setSessionFailed] = useState(false);
 	const [redirectGatewayURL, setRedirectGatewayURL] = useState("");
+
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		initPayment(userInfo().token)
@@ -17,6 +19,13 @@ const PaymentPage = () => {
 					console.log(response.data.response.status);
 					setSessionSuccess(true);
 					setRedirectGatewayURL(response.data.response.GatewayPageURL);
+				}else {
+					//if response status is 'failed' or 'canceled'
+					setSessionFailed(true);
+
+					setTimeout(() => {
+						navigate('/')
+					}, 3000);
 				}
 			})
 			.catch((error) => {
@@ -38,7 +47,7 @@ const PaymentPage = () => {
 
 			{sessionFailed ? (
 				<div className="container">
-					{showError(true, " why Payment Failed")}
+					{showError(true, "Payment Failed")}
 					<button className="btn btn-warning">
                     <Link to="/user/cart">Go Back</Link>
                     </button>

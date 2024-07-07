@@ -7,16 +7,29 @@ const Menu = () => {
 	const navigate = useNavigate();
 
 	const isActivated = (path) => {
+
 		return location.pathname === path ? "activeLink" : "";
 	};
 
 	return (
 		<>
-			<nav className="navbar navbar-dark bg-dark">
-				<div className="container border">
-					<div className="row justify-content-center w-100">
-					<ul className="nav nav-tabs">
-						<li className="nav-item large_nav_links">
+			<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+				<div className="container">
+
+				<Link className="navbar-brand" to="/">
+				<img className= "mr-1" src="/assets/logo.png" alt="Bootstrap" width="30" height="30"
+				 />MA_ECOM
+				</Link>
+
+				<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapseContent" aria-controls="navbarCollapseContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span className="navbar-toggler-icon"></span>
+				</button>
+
+
+				<div className="collapse navbar-collapse justify-content-end" id="navbarCollapseContent">
+
+					<ul className="navbar-nav nav-tabs">
+						<li className="nav-item large_nav_links mx-2">
 							<Link to="/" className={`${isActivated("/")} nav-link `}>
 								Home
 							</Link>
@@ -24,7 +37,7 @@ const Menu = () => {
 
 						{!isAuthenticated() && (
 							<>
-								<li className="nav-item large_nav_links">
+								<li className="nav-item large_nav_links mx-2">
 									<Link
 										to="/login"
 										className={`${isActivated("/login")} nav-link `}
@@ -33,7 +46,7 @@ const Menu = () => {
 									</Link>
 								</li>
 
-								<li className="nav-item large_nav_links">
+								<li className="nav-item large_nav_links mx-2">
 									<Link
 										to="/register"
 										className={`${isActivated("/register")} nav-link`}
@@ -46,18 +59,18 @@ const Menu = () => {
 
 						{isAuthenticated() && (
 							<>
-								<li className="nav-item large_nav_links">
+								<li className="nav-item large_nav_links mx-2">
 									<Link
 										to={`/${userInfo().role}/dashboard`}
 										className={`${isActivated(
-											`{/${userInfo().role}/dashboard}`
+											`/${userInfo().role}/dashboard`
 										)} nav-link`}
 									>
 										Dashboard
 									</Link>
 								</li>
 
-								<li className="nav-item large_nav_links">
+								<li className="nav-item large_nav_links mx-2">
 									<Link
 										to={`/user/cart`}
 										className={`${isActivated(`/user/cart`)} nav-link`}
@@ -66,9 +79,9 @@ const Menu = () => {
 									</Link>
 								</li>
 
-								<li className="nav-item large_nav_links">
+								<li className="nav-item large_nav_links mx-2">
 									<span
-										className="nav-link text-primary"
+										className="nav-link"
 										style={{ cursor: "pointer" }}
 										onClick={() => {
 											signOut(() => {
@@ -82,9 +95,10 @@ const Menu = () => {
 							</>
 						)}
 					</ul>
-					</div>
 
 				</div>
+				</div>
+
 			</nav>
 		</>
 	);
