@@ -87,65 +87,101 @@ const initPayment = async (req, res) => {
 		product_profile: "general",
 	});
 
-    // const completedOrder = new CompletedOrder({
-    //     cartItems: cartItems,
-    //     tran_id: trans_id(),
-    //     address: profile,
-    //     user: userId,
-    // })
+
+	const completedOrder = new CompletedOrder({
+		cartItems: cartItems,
+		tran_id: trans_id(),
+		address: profile,
+		user: userId,
+	})
+
 
 	payment
 		.paymentInit()
-		.then((response) => {
+		.then(async (response) => {
 
             //now put the sessionKey to the completedOrder obj
-            // completedOrder['sessionKey'] = response.response.sessionkey
+			if(response){
 
-			res.send({
-				response: response,
+				completedOrder['sessionKey'] = response.sessionkey
+				await completedOrder.save()
 
-				// user: user,
-				// cartItems: cartItems,
-				// totalPrice: totalPrice,
-				// totalItems: totalItems,
-				// trans_id: trans_id(),
-				// profile: profile
-			});
+
+				console.log("session key: ", response.sessionkey)
+				console.log("completedOrder: ", completedOrder)
+
+				return res.status(200).send({
+					response: response,
+	
+					// user: user,
+					// cartItems: cartItems,
+					// totalPrice: totalPrice,
+					// totalItems: totalItems,
+					// trans_id: trans_id(),
+					// profile: profile
+	
+					completedOrder: completedOrder,
+				});
+			}
+
 		})
 		.catch((error) => {
 			console.log(error)
-			res.send(error)
+			return res.status(500).send(error)
 		});
 };
 
 const ipnHandler = async (req, res) => {
 	console.log(req.body);
-    try {
+
+	try {
 
         const payment = new Payment(req.body)
+		const completedOrder =  await CompletedOrder.findOne({tran_id: payment.tran_id})
 
         if(req.body.status === 'VALID'){
 
-			try {
+			if(completedOrder){
+				try {
 				
-				completedOrder['status'] = "Completed"
-				await completedOrder.save()
-				await payment.save()
-				await CartItem.deleteMany(completedOrder.cartItems)
+					completedOrder['status'] = "Completed"
+					await completedOrder.save()
+					await payment.save()
+					await CartItem.deleteMany({user: completedOrder.user})
 
-
+					return res.status(200).send({
+						message: "order and payment processed successfully"
+					})
 	
-			} catch (error) {
-				console.log(error)
-				
+		
+				} catch (error) {
+					console.log(error)
+					return res.status(500).send({
+						message: "error in payment and completing order",
+						error: error
+					})
+					
+				}
+
 			}
+
+
 
         }else{
 			await payment.save()
+			return res.status(500).send({
+				message: "order not completed and payment is not successful"
+			})
+
 		}
         
 
     } catch (error) {
+
+		return res.status(500).send({
+			message: "order and payment failed to process",
+			error: error
+		})
         
     }
 };
@@ -153,19 +189,19 @@ const ipnHandler = async (req, res) => {
 const ipnPaymentSuccessHandler = async (req, res) => {
 	try {
         const successFilePath = path.join(global.__basedir, 'public', 'paymentSuccess.html')
-        res.sendFile(successFilePath)
+        return res.status(200).sendFile(successFilePath)
 	} catch (error) {
-        res.send(error)
+        return res.status(500).send(error)
     }
 };
 
 const ipnPaymentFailureHandler = async (req, res) => {
     try {
         const paymentFailurePath = path.join(global.__basedir, 'public', 'paymentFailure.html')
-        res.sendFile(paymentFailurePath)
+        return res.status(200).sendFile(paymentFailurePath)
         
     } catch (error) {
-        res.send(error)
+        return res.status(500).send(error)
 
     }
 
@@ -175,10 +211,10 @@ const ipnPaymentFailureHandler = async (req, res) => {
 const ipnPaymentCancelHandler = async (req, res) => {
     try {
         const paymentCancelPath = path.join(global.__basedir, 'public', 'paymentCancel.html')
-        res.sendFile(paymentCancelPath)
+        return res.status(200).sendFile(paymentCancelPath)
         
     } catch (error) {
-        res.send(error)
+        return res.status(500).send(error)
 
     }
     
