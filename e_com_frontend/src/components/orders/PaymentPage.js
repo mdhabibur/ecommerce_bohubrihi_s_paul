@@ -15,7 +15,7 @@ const PaymentPage = () => {
 				console.log(response.data);
 				if (response.data.response.status === "SUCCESS") {
 					console.log(response.data.response.status);
-					setSessionSuccess(true);
+					// setSessionSuccess(true);
 					setRedirectGatewayURL(response.data.response.GatewayPageURL);
 				}
 			})

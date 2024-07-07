@@ -2,6 +2,8 @@ const SSLCommerz = require("ssl-commerz-node");
 const { CartItem } = require("../models/CartItem");
 const Profile = require("../models/Profile");
 const path = require("path");
+const CompletedOrder = require("../models/CompletedOrder");
+const { Payment } = require("../models/Payment");
 const PaymentSession = SSLCommerz.PaymentSession;
 require("dotenv").config();
 
@@ -85,9 +87,20 @@ const initPayment = async (req, res) => {
 		product_profile: "general",
 	});
 
+    const completedOrder = new CompletedOrder({
+        cartItems: cartItems,
+        tran_id: trans_id(),
+        address: profile,
+        user: userId,
+    })
+
 	payment
 		.paymentInit()
 		.then((response) => {
+
+            //now put the sessionKey to the completedOrder obj
+            completedOrder['sessionKey'] = response.response.sessionkey
+
 			res.send({
 				response: response,
 
@@ -104,6 +117,34 @@ const initPayment = async (req, res) => {
 
 const ipnHandler = async (req, res) => {
 	console.log(req.body);
+    try {
+
+        const payment = new Payment(req.body)
+
+        if(req.body.status === 'VALID'){
+
+			try {
+				
+				completedOrder['status'] = "Completed"
+				await completedOrder.save()
+				await payment.save()
+				await CartItem.deleteMany(completedOrder.cartItems)
+
+
+	
+			} catch (error) {
+				console.log(error)
+				
+			}
+
+        }else{
+			await payment.save()
+		}
+        
+
+    } catch (error) {
+        
+    }
 };
 
 const ipnPaymentSuccessHandler = async (req, res) => {
