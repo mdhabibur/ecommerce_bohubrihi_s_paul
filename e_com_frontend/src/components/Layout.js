@@ -8,10 +8,10 @@ const Layout = ({ title, className, offsetMd3, children }) => {
     }, [title])
 
 	return (
-		<>
+		<div className="gray_background">
 			<Menu />
 
-			<div className={`${className} my-3 gray_background`}>
+			<div className={`${className} my-3`}>
 				<div className="row">
 					<div className={offsetMd3 ? `col-md-6 ${offsetMd3}` : `col-md-12`}
 					>
@@ -20,7 +20,7 @@ const Layout = ({ title, className, offsetMd3, children }) => {
 					</div>
 				</div>
             </div>
-		</>
+		</div>
 	);
 };
 
