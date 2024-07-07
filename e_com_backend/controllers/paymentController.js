@@ -28,6 +28,8 @@ const initPayment = async (req, res) => {
 		return `tran_${timestamp}_${randomNumber}`;
 	};
 
+	const tran_id = trans_id()
+
 	// For live payment set first parameter `false` and for sandbox set it `true`
 	const payment = new PaymentSession(
 		true,
@@ -49,7 +51,7 @@ const initPayment = async (req, res) => {
 	payment.setOrderInfo({
 		total_amount: totalPrice, // Number field
 		currency: "BDT", // Must be three character string
-		tran_id: trans_id(), // Unique Transaction id
+		tran_id: tran_id, // Unique Transaction id
 		emi_option: 0, // 1 or 0
 	});
 
@@ -90,7 +92,7 @@ const initPayment = async (req, res) => {
 
 	const completedOrder = new CompletedOrder({
 		cartItems: cartItems,
-		tran_id: trans_id(),
+		tran_id: tran_id,
 		address: profile,
 		user: userId,
 	})
