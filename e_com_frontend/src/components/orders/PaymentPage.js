@@ -29,7 +29,7 @@ const PaymentPage = () => {
 		<>
 			{sessionSuccess ? (
 				<>
-					<div className="container text-center"><h5>payment is processing</h5></div>
+					<div className="container text-center alert alert-info"><h5>payment is processing</h5></div>
 					{(window.location = redirectGatewayURL)}{" "}
 				</>
 			) : (

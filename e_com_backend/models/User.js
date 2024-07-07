@@ -46,7 +46,7 @@ userSchema.methods.generateJWT = function () {
 			role: this.role,
 		},
 		process.env.JWT_SECRET_KEY,
-		{ expiresIn: "600s" }
+		{ expiresIn: "24h" }
 	);
 
 	return token;
