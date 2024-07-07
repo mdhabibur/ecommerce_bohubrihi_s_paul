@@ -11,7 +11,7 @@ const Layout = ({ title, className, offsetMd3, children }) => {
 		<>
 			<Menu />
 
-			<div className={`${className} my-3`}>
+			<div className={`${className} my-3 gray_background`}>
 				<div className="row">
 					<div className={offsetMd3 ? `col-md-6 ${offsetMd3}` : `col-md-12`}
 					>
