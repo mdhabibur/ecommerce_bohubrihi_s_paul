@@ -87,19 +87,19 @@ const initPayment = async (req, res) => {
 		product_profile: "general",
 	});
 
-    const completedOrder = new CompletedOrder({
-        cartItems: cartItems,
-        tran_id: trans_id(),
-        address: profile,
-        user: userId,
-    })
+    // const completedOrder = new CompletedOrder({
+    //     cartItems: cartItems,
+    //     tran_id: trans_id(),
+    //     address: profile,
+    //     user: userId,
+    // })
 
 	payment
 		.paymentInit()
 		.then((response) => {
 
             //now put the sessionKey to the completedOrder obj
-            completedOrder['sessionKey'] = response.response.sessionkey
+            // completedOrder['sessionKey'] = response.response.sessionkey
 
 			res.send({
 				response: response,
@@ -112,7 +112,10 @@ const initPayment = async (req, res) => {
 				// profile: profile
 			});
 		})
-		.catch((error) => res.send(error));
+		.catch((error) => {
+			console.log(error)
+			res.send(error)
+		});
 };
 
 const ipnHandler = async (req, res) => {

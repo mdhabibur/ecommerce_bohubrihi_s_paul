@@ -20,6 +20,7 @@ const PaymentPage = () => {
 				}
 			})
 			.catch((error) => {
+				console.log("payment session error: ", error)
 				setSessionFailed(true);
 			});
 	}, []);
@@ -37,7 +38,7 @@ const PaymentPage = () => {
 
 			{sessionFailed ? (
 				<div className="container">
-					{showError(true, "Payment Failed")}
+					{showError(true, " why Payment Failed")}
 					<button className="btn btn-warning">
                     <Link to="/user/cart">Go Back</Link>
                     </button>
