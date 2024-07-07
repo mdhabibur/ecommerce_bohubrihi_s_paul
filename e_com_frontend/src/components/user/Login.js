@@ -77,14 +77,8 @@ const Login = () => {
 
 	//show messages for 3 seconds
 	useEffect( () => {
-		if(error || success || loading){
+		if(error || success){
 			const timer = setTimeout(() => {
-
-				if(loading){
-                    alert("timeout for login")
-                }
-
-				setLoading(false)
 				setError(false)
 				setSuccess(false)
 			}, 5000);
@@ -93,7 +87,7 @@ const Login = () => {
 		}
 
 
-	}, [loading, error, success])
+	}, [error, success])
 
 
 	const signInForm = () => (

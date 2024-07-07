@@ -65,14 +65,8 @@ const Register = () => {
 
 	//show messages for 3 seconds
 	useEffect( () => {
-		if(error || success || loading){
+		if(error || success ){
 			const timer = setTimeout(() => {
-
-				if(loading){
-                    alert("timeout for account creation")
-                }
-				
-				setLoading(false)
 				setError(false)
 				setSuccess(false)
 			}, 5000);
@@ -81,7 +75,7 @@ const Register = () => {
 		}
 
 
-	}, [loading, error, success])
+	}, [error, success])
 
 	const signUpForm = () => (
 		<form onSubmit={handleSubmit}>
